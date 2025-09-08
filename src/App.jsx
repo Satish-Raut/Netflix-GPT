@@ -1,11 +1,29 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import { Home } from "./Pages/Home";
+import { Browse } from "./Pages/Browse";
+import { SignIn } from "./Pages/SignIn";
+import { AppLayout } from "./Components/Layout/AppLayout";
 
 const App = () => {
-  return (
-    <div className="text-5xl font-bold text-center mt-[25%]">
-      Wellcome to Netflix GPT
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          path: "/browse",
+          element: <Browse />,
+        },
+        {
+          path: "/signin",
+          element: <SignIn />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;
