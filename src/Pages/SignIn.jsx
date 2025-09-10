@@ -1,27 +1,117 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { validateUserData } from "../Utils/Validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../Utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Utils/userSlice";
 
 export const SignIn = () => {
   // State to track whether the user is signing in or signing up.
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
 
   // Function to toggle between the sign-in and sign-up forms.
   const toggleForm = () => {
     setIsSignInForm(!isSignInForm);
   };
 
+  // Forma handling & Validation
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const msg = validateUserData(email.current.value, password.current.value);
+    setErrorMsg(msg);
+
+    if (msg) return;
+
+    // SignUp / SignIn
+    if (!isSignInForm) {
+      // Sign Up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/148804426?v=4",
+          })
+            .then(() => {
+              // Profile updated!
+              console.log(auth.currentUser);
+
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(addUser({ uid, email, displayName, photoURL }));
+
+              toggleForm();
+            })
+            .catch((error) => {
+              // An error occurred
+              console.log(error);
+              setErrorMsg(error.message);
+            });
+
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(errorCode + " " + errorMessage);
+        });
+      // Converted to sign In after SignUp
+    } else {
+      // Sign In logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("Sign In: ", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(errorMessage);
+          console.log(errorMessage);
+        });
+
+      // After Successfully signed in user re-directed to the browse page
+      navigate("/browse");
+    }
+  };
+
   return (
     <div className="flex-grow flex items-center justify-center">
-      <div className="bg-black p-12 sm:p-16 rounded-md w-full max-w-md text-white shadow-lg bg-opacity-75">
+      <div className="bg-black p-12 sm:p-16 rounded-md w-full max-w-md text-white shadow-lg opacity-80 hover:scale-102 duration-300">
         {/* Title: Changes based on the current form state */}
         <h1 className="text-3xl font-bold mb-6">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
 
         {/* Form */}
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
           {/* Full Name Input: Renders only on the Sign Up form */}
           {!isSignInForm && (
             <input
+              ref={name}
+              name="name"
               type="text"
               placeholder="Full Name"
               className="p-3 rounded bg-neutral-700 border border-neutral-600 focus:border-red-500 focus:outline-none"
@@ -31,7 +121,9 @@ export const SignIn = () => {
 
           {/* Email or Phone */}
           <input
-            type="text"
+            ref={email}
+            name="email"
+            type="email"
             placeholder="Email or phone number"
             className="p-3 rounded bg-neutral-700 border border-neutral-600 focus:border-red-500 focus:outline-none"
             required
@@ -39,16 +131,22 @@ export const SignIn = () => {
 
           {/* Password */}
           <input
+            ref={password}
+            name="password"
             type="password"
             placeholder="Password"
             className="p-3 rounded bg-neutral-700 border border-neutral-600 focus:border-red-500 focus:outline-none"
             required
           />
+          {/* Error Message */}
+          <p className="text-md font-semibold text-center text-red-500">
+            {errorMsg}
+          </p>
 
           {/* Button: Text changes based on the current form state */}
           <button
             type="submit"
-            className="bg-red-600 hover:bg-red-700 transition-colors font-semibold py-3 rounded-md mt-8"
+            className="bg-red-600 hover:bg-red-700 transition-colors font-semibold py-3 rounded-md mt-4 cursor-pointer "
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
