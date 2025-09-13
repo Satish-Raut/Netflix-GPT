@@ -1,4 +1,3 @@
-
 ## Netflix GPT
 
 - Create React + Vite App
@@ -51,3 +50,111 @@ Answer:
 This auth object is like your gateway to all Firebase Authentication features — sign-in, sign-out, user info, managing sessions, etc.
 
 👉`In Short`: export const auth = getAuth(); gives you one authentication instance connected to your Firebase project. You then pass it into functions like signInWithEmailAndPassword, signOut, etc., to control all authentication-related features in your app.
+
+# 3. `🪲 Bug Fix: User Profile (`displayName`and`photoURL`) Not Updating Immediately in Redux Store`
+
+## Problem Description
+
+- When a new user signs up using `createUserWithEmailAndPassword`, their profile details (`displayName`, `photoURL`) are updated using `updateProfile`.
+- However, after signup, the Redux store only contains the **default Firebase user object** (with empty `displayName` and `photoURL`).
+- The updated profile fields appear **only after refreshing the page** or re-triggering `onAuthStateChanged`.
+
+---
+
+## Root Cause
+
+- `updateProfile()` updates the user object **asynchronously** on Firebase servers.
+- The `auth.currentUser` object in memory does not always refresh immediately after calling `updateProfile`.
+- `onAuthStateChanged` only fires when **auth state** changes (sign-in, sign-out, token refresh), not when profile fields are updated.
+- As a result, Redux receives stale data right after signup.
+
+---
+
+## Fixing Steps
+
+### ✅ Step 1: Update Redux Store Manually After `updateProfile`
+
+Right after `updateProfile` succeeds, destructure the updated user object and dispatch it to Redux.
+
+````js
+updateProfile(auth.currentUser, {
+  displayName: name.current.value,
+  photoURL: "https://avatars.githubusercontent.com/u/148804426?v=4",
+})
+  .then(() => {
+    // Forcefully push updated values to Redux
+    const { uid, email, displayName, photoURL } = auth.currentUser;
+    dispatch(addUser({ uid, email, displayName, photoURL }));
+
+    toggleForm();
+  })
+  .catch((error) => {
+    console.log(error);
+    setErrorMsg(error.message);
+  });
+
+➡️ This ensures Redux has the latest profile data without waiting for a page reload.
+
+### ✅ Step 2: Keep `onAuthStateChanged` in App.jsx
+
+    useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const { uid, email, displayName, photoURL } = user;
+            dispatch(addUser({ uid, email, displayName, photoURL }));
+        } else {
+            dispatch(removeUser());
+        }
+    });
+    }, []);
+
+- Still needed to sync user state across sessions.
+- But it won’t fire immediately after updateProfile.
+
+
+# 4. `🪲# Bug Fix: Redirecting Based on Authentication State
+
+## Problem Description
+- Earlier, users could manually type `/browse` in the URL even if they weren’t logged in, and still access the page.
+- Similarly, when users were already logged in, they could manually navigate back to `/signin`, which should not be allowed.
+- This caused a security and UX issue because routes were not **protected**.
+
+---
+
+## Root Cause
+- The app was missing proper **auth state-based navigation control**.
+- `onAuthStateChanged` was only updating the Redux store, but **no redirection logic** was applied at the same place.
+- As a result, unauthorized users could bypass navigation restrictions manually.
+
+---
+
+## Fix Implemented
+
+### ✅ Added Navigation Inside `onAuthStateChanged`
+By moving the logic into `Header.jsx` (or a global component that always renders), we ensure navigation updates immediately when auth state changes:
+
+```js
+useEffect(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in
+      const { uid, email, displayName, photoURL } = user;
+      dispatch(addUser({ uid, email, displayName, photoURL }));
+      navigate("/browse"); // ✅ Force authenticated users to browse
+    } else {
+      // User is signed out
+      dispatch(removeUser());
+      navigate("/signin"); // ✅ Redirect unauthenticated users
+    }
+  });
+}, []);
+`
+````
+
+# 5.  src={<https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&controls=0&loop=1&playlist=${trailerKey}}>}
+
+  autoplay=1 → plays automatically  
+  mute=1 → muted (needed for autoplay)  
+  controls=0 → hides player controls  
+  loop=1 → makes it repeat  
+  playlist=`${trailerKey}` → ensures looping works with a single video  

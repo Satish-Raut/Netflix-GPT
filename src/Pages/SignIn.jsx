@@ -6,15 +6,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
+import { AVTAR_1 } from "../Utils/Constants";
 
 export const SignIn = () => {
   // State to track whether the user is signing in or signing up.
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useRef(null);
@@ -48,7 +47,7 @@ export const SignIn = () => {
 
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/148804426?v=4",
+            photoURL: AVTAR_1,
           })
             .then(() => {
               // Profile updated!
@@ -91,9 +90,6 @@ export const SignIn = () => {
           setErrorMsg(errorMessage);
           console.log(errorMessage);
         });
-
-      // After Successfully signed in user re-directed to the browse page
-      navigate("/browse");
     }
   };
 
@@ -187,6 +183,7 @@ export const SignIn = () => {
             Learn more.
           </a>
         </p>
+        
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export const AppLayout = () => {
         style={
           isSignInPage || (!user && isHomePage)
             ? {
-                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.9) 1%, rgba(0,0,0,0.6) 10%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 100%), url('https://assets.nflxext.com/ffe/siteui/vlv3/8d617e19-3c3c-4c28-8998-c9b14dbc7200/web/IN-en-20250901-TRIFECTA-perspective_48d84d4e-9558-46b8-a0f3-8b2dc8478431_small.jpg')`,
+                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.9) 1%, rgba(0,0,0,0.6) 10%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.9) 100%), url('https://assets.nflxext.com/ffe/siteui/vlv3/8d617e19-3c3c-4c28-8998-c9b14dbc7200/web/IN-en-20250901-TRIFECTA-perspective_48d84d4e-9558-46b8-a0f3-8b2dc8478431_small.jpg')`,
               }
             : {}
         }
