@@ -9,7 +9,7 @@ export const BackgroundTrailer = ({
   const trailerVideo = useGetTrailer(movieId);
 
   return (
-    <div className="absolute inset-0 w-full h-full -z-20 overflow-hidden">
+    <div className="absolute inset-0 w-full h-full overflow-hidden">
       {trailerVideo ? (
         <iframe
           className="
@@ -49,6 +49,7 @@ export const BackgroundTrailer = ({
 
       {/* ✅ Gradient overlay is now part of Background */}
       <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/90 via-black/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
     </div>
   );
 };

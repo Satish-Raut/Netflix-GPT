@@ -34,12 +34,8 @@ export const MainContent = () => {
           title={title}
         />
 
-        {/* Use <picture> so we can serve the poster on small screens (portrait) */}
-        {/* Gradient overlay (responsive direction) */}
-        {/* <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black via-black/70 to-transparent" /> */}
-
         {/* Content block - positioned relative to the top so header doesn't look far */}
-        <div className="absolute left-4 sm:left-12 top-[55%] sm:top-[22%] md:top-[45%] max-w-xl">
+        <div className="absolute left-4 sm:left-12 top-[55%] sm:top-[22%] md:top-[43%] max-w-xl">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-white">
             {title}
           </h1>

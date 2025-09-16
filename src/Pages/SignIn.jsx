@@ -51,7 +51,7 @@ export const SignIn = () => {
           })
             .then(() => {
               // Profile updated!
-              console.log(auth.currentUser);
+              // console.log(auth.currentUser);
 
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(addUser({ uid, email, displayName, photoURL }));
@@ -60,7 +60,7 @@ export const SignIn = () => {
             })
             .catch((error) => {
               // An error occurred
-              console.log(error);
+              // console.log(error);
               setErrorMsg(error.message);
             });
 

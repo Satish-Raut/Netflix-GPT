@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="bg-black bg-opacity-70 text-gray-300 py-6 mt-auto">
+    <footer className="bg-[#202020] bg-opacity-70 text-gray-300 py-6 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 text-center">
         <p className="text-sm">
           © {new Date().getFullYear()} Netflix Clone. All rights reserved.

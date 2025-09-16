@@ -67,7 +67,7 @@ export const Header = () => {
       {/* Left: Logo */}
       <div className="flex items-center space-x-4 md:space-x-8 mx-2">
         <NavLink to={isSignInPage ? "/" : user ? "/browse" : "/"}>
-          <img src={LOGO} className="h-10 md:h-14" />
+          <img src={LOGO} className="h-10 md:h-14 " />
         </NavLink>
 
         {/* Nav only if signed in */}
