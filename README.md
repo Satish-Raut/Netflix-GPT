@@ -14,6 +14,27 @@
 - Create the SignUp feature
 - Created Redux Store with `userSlice`
 - `onAuthStateChanged(auth, callback)` → Subscribes to authentication state changes and invokes the callback whenever the user signs in, signs out, or the ID token changes.
+- 🪲 Bug Fix: User Profile (`displayName`and`photoURL`) Not Updating Immediately in Redux Store
+- 🪲 Bug Fix: Redirecting Based on Authentication State
+- Add Hardcoded values to the constant file
+- Get access to the TMDB API Key
+- Fetching data form the TMDB movie list API
+- Custom Hook form NowPlaying Movies
+- Create Movie Slice
+- Update store With Movie Data
+- Planning for Main & Secondary Container
+- Fetch Data for Trailer Video
+- Update store with the Trailer Video
+- Embeded the Youtube Video & make it Autoplay , mute
+- Build Secondary Content
+- Build Movie List
+- Build Movie Card
+- TMDB image CDN URL
+- usePopularMovies() Hook for popular movies data from TMDB API
+- useTopRatedMovies() Hook for Top Rated movies data from TMDB API
+- useUpcomingMovies() Hook for Upcoming movies data from TMDB API
+- Build GPT Search Page with GPT Search Bar
+- Implement Multi-Language Feature
 
 ## From `Firebase`
 
@@ -112,7 +133,7 @@ updateProfile(auth.currentUser, {
 - But it won’t fire immediately after updateProfile.
 
 
-# 4. `🪲# Bug Fix: Redirecting Based on Authentication State
+# 4. `🪲# Bug Fix: Redirecting Based on Authentication State`
 
 ## Problem Description
 - Earlier, users could manually type `/browse` in the URL even if they weren’t logged in, and still access the page.

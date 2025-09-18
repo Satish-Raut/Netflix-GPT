@@ -6,6 +6,9 @@ import { addUser, removeUser } from "../../Utils/userSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../Utils/firebase";
 import { AVTAR_2, LOGO } from "../../Utils/Constants";
+import { toggleGptSearchView } from "../../Utils/gptSlice";
+import { SupportedLanguages } from "../../Utils/LanguageConstant";
+import { changeLanguage } from "../../Utils/configSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -54,6 +57,16 @@ export const Header = () => {
     });
   };
 
+  const handleGptSearch = () => {
+    // Toggle GPT Search
+    dispatch(toggleGptSearchView());
+  };
+
+  const handelLanguage = (e) => {
+    // console.log(e.target.value)
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-30 px-4 sm:px-8 py-4 flex justify-between items-center transition-colors duration-500 ${
@@ -87,9 +100,15 @@ export const Header = () => {
       <div className="flex items-center space-x-2 sm:space-x-4 mx-3">
         {!user || isSignInPage ? (
           <>
-            <select className="bg-black bg-opacity-60 border border-gray-500 text-white text-sm rounded-md py-1 pl-2 pr-6">
-              <option value="en">English</option>
-              <option value="hi">हिन्दी</option>
+            <select
+              onChange={handelLanguage}
+              className="bg-black bg-opacity-60 border border-gray-500 text-white text-sm rounded-md py-1 pl-2 pr-6"
+            >
+              {SupportedLanguages.map((lang) => (
+                <option key={lang.id} value={lang.id}>
+                  {lang.name}
+                </option>
+              ))}
             </select>
 
             <NavLink
@@ -101,8 +120,29 @@ export const Header = () => {
           </>
         ) : (
           <>
-            <FaSearch className="text-white cursor-pointer" />
-            <span className="hidden sm:inline text-white">Children</span>
+            <div
+              onClick={handleGptSearch}
+              className="relative flex flex-row items-center justify-center gap-2 px-4 py-2 
+             border-2 border-white rounded-full cursor-pointer 
+             bg-white/10 backdrop-blur-md shadow-md
+             transition-all duration-300 ease-in-out
+             hover:scale-105 hover:bg-white/20 hover:shadow-lg active:scale-95"
+            >
+              {/* Blue highlight with ping effect */}
+              <span className="absolute -top-1 -right-1 flex size-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
+              </span>
+
+              {/* Icon */}
+              <FaSearch className="text-white text-xl transform transition-transform duration-300 group-hover:rotate-12" />
+
+              {/* Label */}
+              <span className="hidden sm:inline text-white font-medium transition-opacity duration-300">
+                GPT Search
+              </span>
+            </div>
+
             <FaBell className="text-white cursor-pointer" />
 
             {/* User Avatar Dropdown */}

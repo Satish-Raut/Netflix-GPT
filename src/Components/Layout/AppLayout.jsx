@@ -2,10 +2,15 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { useSelector } from "react-redux";
+import { GPTSearch } from "../../Pages/GPTSearch";
+import languages from "../../Utils/LanguageConstant";
 
 export const AppLayout = () => {
   // Get the Logged in user data from the redux store
   const user = useSelector((state) => state.user);
+  const showGptSearch = useSelector((state) => state.gptSearch.showGptSearch);
+  console.log(showGptSearch);
+  const selectLanguage = useSelector((state) => state.config.language);
 
   // Get the current path
   const location = useLocation();
@@ -32,33 +37,43 @@ export const AppLayout = () => {
         {!user && isHomePage && (
           <main className="flex-grow flex items-center justify-center text-center text-white px-6">
             <div className="max-w-2xl">
-              <h1 className="text-6xl md:text-6xl font-bold mb-4">
-                Unlimited movies, TV shows and more
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                {/* Unlimited movies, TV shows and more */}
+                {languages[selectLanguage].heading}
               </h1>
               <p className="text-lg mb-2">
-                Starts at ₹149. Cancel at any time.
+                {/* Starts at ₹149. Cancel at any time. */}
+                {languages[selectLanguage].para_1}
               </p>
               <p className="mb-6">
-                Ready to watch? Enter your email to create or restart your
-                membership.
+                {/* Ready to watch? Enter your email to create or restart your
+                membership. */}
+                {languages[selectLanguage].para_2}
               </p>
 
               {/* Email input & button */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <input
                   type="email"
-                  placeholder="Email address"
+                  placeholder={languages[selectLanguage].placeholder}
                   className="p-4 rounded-md text-white bg-black bg-opacity-40 border border-gray-500 flex-grow w-full sm:w-2/3 focus:outline-none focus:ring-2 focus:ring-white"
                 />
                 <NavLink
                   to={"/signin"}
                   className="bg-red-600 hover:bg-red-700 px-6 py-4 rounded-md font-semibold text-white cursor-pointer my-auto"
                 >
-                  Get Started &gt;
+                  {languages[selectLanguage].btn} &gt;
                 </NavLink>
               </div>
             </div>
           </main>
+        )}
+
+        {/* Gpt Search Page */}
+        {showGptSearch && (
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <GPTSearch />
+          </div>
         )}
 
         <Outlet />
