@@ -1,3 +1,22 @@
+
+# CinemaFriend 🎬
+
+A movie browsing and recommendation app built with React and deployed on Netlify.
+
+## 🚀 Live Preview
+
+Check out the live version of the app here:  
+👉 [CinemaFriend Live](https://cinemafriend.netlify.app/browse)
+
+## 🛠️ Tech Stack
+
+- React.js
+- Redux Toolkit
+- Tailwind CSS
+- Firebase (for authentication)
+- TMDB API (for movie data)
+- Netlify (for deployment)
+
 ## Netflix GPT
 
 - Create React + Vite App
