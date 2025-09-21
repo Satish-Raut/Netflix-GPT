@@ -67,7 +67,7 @@ export const SignIn = () => {
               setErrorMsg(error.message);
             });
 
-          console.log(user);
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -87,7 +87,7 @@ export const SignIn = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log("Sign In: ", user);
+          // console.log("Sign In: ", user);
         })
         .catch((error) => {
           const errorCode = error.code;

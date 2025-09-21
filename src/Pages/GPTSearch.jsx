@@ -13,7 +13,7 @@ export const GPTSearch = () => {
   const searchText = useRef(null);
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
+    // console.log("Form Submitted");
   };
 
   const searchTMDBMovies = async (movie) => {
@@ -35,7 +35,7 @@ export const GPTSearch = () => {
       return exactMatch || data || null;
       // return data.results;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -49,7 +49,7 @@ export const GPTSearch = () => {
 
       const result = response.text;
       const recommendedMovies = result.split(", "); // Converted movie names to Arrays
-      console.log(recommendedMovies);
+      // console.log(recommendedMovies);
 
       // Search the information for each movie in TMDB database
       const movieData = recommendedMovies.map((movie) =>
@@ -57,7 +57,7 @@ export const GPTSearch = () => {
       );
 
       const suggestedMoviesData = await Promise.all(movieData); // Resolve all promises
-      console.log(suggestedMoviesData); // Final data
+      // console.log(suggestedMoviesData); // Final data
 
       // Sent All data to the Redux store
       dispatch(
