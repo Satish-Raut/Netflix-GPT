@@ -9,7 +9,6 @@ export const AppLayout = () => {
   // Get the Logged in user data from the redux store
   const user = useSelector((state) => state.user);
   const showGptSearch = useSelector((state) => state.gptSearch.showGptSearch);
-  console.log(showGptSearch);
   const selectLanguage = useSelector((state) => state.config.language);
 
   // Get the current path

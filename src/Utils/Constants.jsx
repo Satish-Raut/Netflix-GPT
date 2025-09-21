@@ -6,12 +6,11 @@ export const AVTAR_2 =
   "https://yt3.ggpht.com/hyqijXbkwfgZFIY5OWHddRNBcgD1A8VSQtPQReAaxhERw2jqINlRN4U8hyBFMZip0m78RNP2rA=s88-c-k-c0x00ffffff-no-rj";
 
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w300";
-   
+
 export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMjdiMWU2Mjk4MDAyNzZjZWY3OTIxNGNiNmY3NGEyOSIsIm5iZiI6MTc1NzI2MDU5MC42MTY5OTk5LCJzdWIiOiI2OGJkYWIyZWJlOWY0N2VmNWQ5NDc0ODEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.mxCKuW8OlO-39E0Vrb48gFFsELuakculLXM1sUGyNjA",
+    Authorization: "Bearer " + import.meta.env.VITE_TMDB_KEY,
   },
 };

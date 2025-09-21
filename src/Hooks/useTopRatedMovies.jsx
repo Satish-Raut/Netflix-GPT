@@ -6,7 +6,7 @@ import { API_OPTIONS } from "../Utils/Constants";
 export const useTopRatedMovies = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies?.topRatedMovies); // 👈 read state
-  console.log(movies)
+  // console.log(movies)
 
   const getTopRatedMovies = async () => {
     const res = await fetch(

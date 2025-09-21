@@ -7,7 +7,7 @@ import { addUpcomingMovies } from "../Utils/movieSlice";
 export const useUpcomingMovies = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies?.upcomingMovies); // 👈 read state
-  console.log(movies)
+  // console.log(movies)
 
   const getUpcomingMovies = async () => {
     const res = await fetch(

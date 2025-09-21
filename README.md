@@ -35,6 +35,9 @@
 - useUpcomingMovies() Hook for Upcoming movies data from TMDB API
 - Build GPT Search Page with GPT Search Bar
 - Implement Multi-Language Feature
+- Get Movie recommendation from the AI (GEMINI API)
+- Process the movie data and send to TMDB api to fetch the movie details.
+- Store the Movie Details in Redux store
 
 ## From `Firebase`
 
@@ -179,3 +182,14 @@ useEffect(() => {
   controls=0 → hides player controls  
   loop=1 → makes it repeat  
   playlist=`${trailerKey}` → ensures looping works with a single video  
+
+# 6. Implement The AI feature for Movie Recomandation using Gemini API
+
+# 7. Promise.all
+
+`Promise.all(iterable)` is a method that takes an **iterable** (usually an array) of promises and returns a **single promise** that:
+
+- **Resolves** when **all** of the promises in the iterable are resolved.  
+- The resolved value is an **array of results**, in the same order as the input promises.  
+- **Rejects immediately** if **any one** of the promises rejects.  
+- The rejection reason is the reason from the **first promise that rejects**.
