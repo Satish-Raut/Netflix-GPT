@@ -6,7 +6,7 @@ A movie browsing and recommendation app built with React and deployed on Netlify
 ## 🚀 Live Preview
 
 Check out the live version of the app here:  
-👉 [CinemaFriend Live](https://cinemafriend.netlify.app/browse)
+👉 [https://cinemafriend.netlify.app]
 
 ## 🛠️ Tech Stack
 
