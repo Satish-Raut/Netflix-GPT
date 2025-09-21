@@ -11,3 +11,19 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.dot {
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.delay-150 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.4s;
+}

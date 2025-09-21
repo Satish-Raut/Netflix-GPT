@@ -4,9 +4,9 @@ import { API_OPTIONS } from "../Utils/Constants";
 import { addPopularMovies } from "../Utils/movieSlice";
 
 const usePopularMovies = () => {
-    const dispatch = useDispatch();
-    const movies = useSelector((state) => state.movies?.popularMovies); // 👈 read state
-    // console.log(movies)
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies?.popularMovies); // 👈 read state
+  // console.log(movies)
 
   const getPopularMovies = async () => {
     const res = await fetch(
@@ -15,15 +15,15 @@ const usePopularMovies = () => {
     );
 
     const data = await res.json();
-    dispatch(addPopularMovies(data.results))
-    // console.log(data.results); 
+    dispatch(addPopularMovies(data.results));
+    // console.log(data.results);
   };
 
-  useEffect(()=>{
-    getPopularMovies();
-  }, [])
+  useEffect(() => {
+    !movies && getPopularMovies();
+  }, []);
 
-  return movies;    // 👈 return the Movie data
-}
+  return movies; // 👈 return the Movie data
+};
 
 export default usePopularMovies;

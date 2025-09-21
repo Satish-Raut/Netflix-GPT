@@ -4,8 +4,8 @@ import { addTrailerVideo } from "../Utils/movieSlice";
 import { useEffect } from "react";
 
 export const useGetTrailer = (movieId) => {
-    const dispatch = useDispatch();
-    const trailerVideo = useSelector((state) => state.movies.trailerVideo);
+  const dispatch = useDispatch();
+  const trailerVideo = useSelector((state) => state.movies.trailerVideo);
 
   // Fetch the Trailer Details and update the store with this details
 
@@ -21,7 +21,7 @@ export const useGetTrailer = (movieId) => {
       );
       const trailer = filterData[0];
 
-    //   console.log(trailer, trailer.key);
+      //   console.log(trailer, trailer.key);
       dispatch(addTrailerVideo(trailer));
     } catch (err) {
       console.error("Error fetching trailer:", err);
@@ -29,8 +29,8 @@ export const useGetTrailer = (movieId) => {
   };
 
   useEffect(() => {
-    if (movieId) getTrailer();
+    if (movieId) !trailerVideo && getTrailer();
   }, [movieId]);
 
-    return trailerVideo;
+  return trailerVideo;
 };

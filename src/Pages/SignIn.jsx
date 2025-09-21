@@ -12,6 +12,8 @@ import { AVTAR_1 } from "../Utils/Constants";
 
 export const SignIn = () => {
   // State to track whether the user is signing in or signing up.
+  const [loading, setLoading] = useState(false);
+
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ export const SignIn = () => {
     // SignUp / SignIn
     if (!isSignInForm) {
       // Sign Up logic
+      setLoading(true);
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -70,10 +73,12 @@ export const SignIn = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorCode + " " + errorMessage);
+          setLoading(false);
         });
       // Converted to sign In after SignUp
     } else {
       // Sign In logic
+      setLoading(true);
       signInWithEmailAndPassword(
         auth,
         email.current.value,
@@ -88,7 +93,7 @@ export const SignIn = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorMessage);
-          console.log(errorMessage);
+          setLoading(false);
         });
     }
   };
@@ -139,6 +144,16 @@ export const SignIn = () => {
             {errorMsg}
           </p>
 
+          {loading && (
+            <div className="flex items-center justify-center py-2">
+              <div className="flex space-x-2">
+                <span className="dot animate-bounce bg-red-500 w-3 h-3 rounded-full"></span>
+                <span className="dot animate-bounce bg-red-500 w-3 h-3 rounded-full delay-150"></span>
+                <span className="dot animate-bounce bg-red-500 w-3 h-3 rounded-full delay-300"></span>
+              </div>
+            </div>
+          )}
+
           {/* Button: Text changes based on the current form state */}
           <button
             type="submit"
@@ -183,7 +198,6 @@ export const SignIn = () => {
             Learn more.
           </a>
         </p>
-        
       </div>
     </div>
   );

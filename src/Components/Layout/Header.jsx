@@ -87,11 +87,11 @@ export const Header = () => {
         {!isSignInPage && user && (
           <nav className="hidden md:flex space-x-4 lg:space-x-6 text-white text-md">
             <NavLink to="/browse">Home</NavLink>
-            <NavLink to="/tvshows">TV Shows</NavLink>
-            <NavLink to="/movies">Movies</NavLink>
-            <NavLink to="/new">New & Popular</NavLink>
-            <NavLink to="/mylist">My List</NavLink>
-            <NavLink to="/languages">Languages</NavLink>
+            <NavLink to="/browse">TV Shows</NavLink>
+            <NavLink to="/browse">Movies</NavLink>
+            <NavLink to="/browse">New & Popular</NavLink>
+            <NavLink to="/browse">My List</NavLink>
+            <NavLink to="/browse">Languages</NavLink>
           </nav>
         )}
       </div>
@@ -188,19 +188,19 @@ export const Header = () => {
           <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             Home
           </NavLink>
-          <NavLink onClick={() => setMenuOpen(false)} to="/tvshows">
+          <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             TV Shows
           </NavLink>
-          <NavLink onClick={() => setMenuOpen(false)} to="/movies">
+          <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             Movies
           </NavLink>
-          <NavLink onClick={() => setMenuOpen(false)} to="/new">
+          <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             New & Popular
           </NavLink>
-          <NavLink onClick={() => setMenuOpen(false)} to="/mylist">
+          <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             My List
           </NavLink>
-          <NavLink onClick={() => setMenuOpen(false)} to="/languages">
+          <NavLink onClick={() => setMenuOpen(false)} to="/browse">
             Languages
           </NavLink>
         </nav>

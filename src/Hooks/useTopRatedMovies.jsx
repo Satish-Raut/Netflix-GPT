@@ -12,7 +12,6 @@ export const useTopRatedMovies = () => {
     const res = await fetch(
       "https://api.themoviedb.org/3/movie/top_rated?page=1",
       API_OPTIONS
-
     );
 
     const data = await res.json();
@@ -21,7 +20,7 @@ export const useTopRatedMovies = () => {
   };
 
   useEffect(() => {
-    getTopRatedMovies();
+    !movies && getTopRatedMovies();
   }, []);
 
   return movies; // 👈 return the Movie data

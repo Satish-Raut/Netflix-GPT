@@ -2,12 +2,13 @@ import { FaSearch, FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addSuggestedMovieData, toggleGptSearchView } from "../Utils/gptSlice";
 import { IoMdSend } from "react-icons/io";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import genAI from "../Utils/gemini";
 import { API_OPTIONS } from "../Utils/Constants";
 import { GptMovieList } from "../Components/UI/GptMovieList";
 
 export const GPTSearch = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const searchText = useRef(null);
   const handleFormSubmit = (e) => {
@@ -39,6 +40,7 @@ export const GPTSearch = () => {
   };
 
   const handleGeminiSearchClick = async () => {
+    setLoading(true)
     try {
       const response = await genAI.models.generateContent({
         model: "gemini-2.5-flash",
@@ -66,6 +68,9 @@ export const GPTSearch = () => {
       );
     } catch (error) {
       console.error("Gemini API error:", error);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -112,9 +117,9 @@ export const GPTSearch = () => {
         <p className="text-gray-400 text-center">Results will appear here...</p>
 
         <div className="p-4 rounded-xl bg-white/5 border border-white/10 shadow hover:bg-white/10 transition lg:mx-6">
-          <h2 className="text-lg font-semibold text-center">Example Result Title</h2>
+          <h2 className="text-xl font-semibold text-center">Recommended Movies</h2>
           <div className="text-gray-300 text-sm mt-6">
-            <GptMovieList/>
+            <GptMovieList loading={loading}/>
           </div>
         </div>
       </div>
